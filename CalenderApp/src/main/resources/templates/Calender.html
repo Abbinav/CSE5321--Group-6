@@ -17,17 +17,25 @@
 var date = /*[[${date}]]*/ "January 29, 2020";
 console.log("Date in html",date);
 var title = /*[[${title}]]*/ "xyz";
+var activity = /*[[${modelData}]]*/ "xyz";
+console.log("modelData", activity);
 console.log("title in html",title); 
 	document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
-          events: [{
-              title: title,
-              start: date
-          }],
+          events: function(info, successCallback, failureCallback){
+		successCallback(         
+          	activity.map(function(act, i){
+          	return{
+          		title: act.activityName,
+          		start: act.startTime	
+          		}
+          		
+          	})
+          	)
+          },
           
-
          eventClick: function(info) {
 
       const myWindow = window.open("CreateEvent", "", "width=700,height=700");
@@ -52,7 +60,6 @@ console.log("title in html",title);
 
 <body>
 <div id='calendar'></div>
-<h2 th:text= "${date}"/>
 
 
 </body>

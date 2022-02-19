@@ -31,7 +31,7 @@ public class CalenderController {
 		model.addAttribute("title", "test");
 		List<Activity> activityData = new ArrayList<>();
 		activityData = repo.findAll();
-		modelData.put("activityData", activityData);
+		//modelData.put("activityData", activityData);
 		
 		if(activityData != null && activityData.size() > 0)
 		{
@@ -41,12 +41,13 @@ public class CalenderController {
 				String formattedDate = activity.getStartTime().format(formatter);
 				//String dat1=output.format(activity.getStartTime());
 				model.addAttribute("date", formattedDate);
-				model.addAttribute("title", activity.getActivityName());
+				model.addAttribute("title", activity.getActivityName());				
 				modelData.put("title", activity.getActivityName());
 				modelData.put("date", formattedDate);
 				System.out.println("date" + formattedDate);
 				System.out.println("name" + activity.getActivityName());
 			}
+			model.addAttribute("modelData", activityData);
 		}
 		
 		
