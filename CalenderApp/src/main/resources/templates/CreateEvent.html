@@ -32,11 +32,15 @@
 
             <form action="#" th:action="@{/calendar/test}"
                   method="post">
-                Enter Todays Date :
+                Enter Start Date and Time :
                 <input name="dateEvent" id="dateEvent" type="datetime-local">
                 <br>
-
-                Enter Event :
+ 				
+ 				Enter End Date and Time :
+                <input name="endDateEvent" id="endDateEvent" type="datetime-local">
+                <br>
+                
+                Enter Event Details :
                 <input name="nameEvent" type="text" id="nameEvent">
                 <br>
                 <button type="submit">Submit </button>

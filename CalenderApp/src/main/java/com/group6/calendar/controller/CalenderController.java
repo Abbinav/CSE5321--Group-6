@@ -68,18 +68,20 @@ public class CalenderController {
 
 
 	@PostMapping("/calendar/{id}")
-	public String gre11ting(Model model,@RequestParam(value="dateEvent") String dateEvent,@RequestParam(value="nameEvent") String nameEvent)  {
+	public String gre11ting(Model model,@RequestParam(value="dateEvent") String dateEvent,@RequestParam(value="endDateEvent") String endDateEvent,@RequestParam(value="nameEvent") String nameEvent)  {
 		//,@RequestParam(value="dateEvent") String dateEvent,@RequestParam(value="nameEvent") String nameEvent		
 		Activity activityData = new Activity();
 		
 		System.out.println("Inside eventsToday / dateEvent :" + dateEvent);
+		System.out.println("Inside eventsToday / dateEvent :" + endDateEvent);
+
 		System.out.println("Inside eventsToday / nameEvent :" + nameEvent);
-		if((dateEvent != null || dateEvent != "") && (nameEvent !=null || nameEvent !=""))
+		if((dateEvent != null || dateEvent != "") && (nameEvent !=null || nameEvent !="") && (endDateEvent != null || endDateEvent != ""))
 		{
 			activityData.setActivityName(nameEvent);
 			DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 			LocalDateTime startTime = LocalDateTime.parse(dateEvent, inputFormat);
-			LocalDateTime endTime = startTime.plusHours(1);
+			LocalDateTime endTime = LocalDateTime.parse(endDateEvent, inputFormat);
 			activityData.setStartTime(startTime);;
 			activityData.setEndTime(endTime);
 			repo.save(activityData);
