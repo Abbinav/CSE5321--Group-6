@@ -24,7 +24,7 @@ public class CalenderController {
 	private static final String DATE_FORMATTER = "yyyy-MM-dd";
 	
 	@GetMapping("/calendar")
-	public String greeting(Model model) {
+	public String getActivity(Model model) {
 		model.addAttribute("something", "Abbi");
 		ModelMap modelData = new ModelMap();
 		Calendar calendar = Calendar.getInstance();
@@ -77,14 +77,14 @@ public class CalenderController {
 
 
 	@RequestMapping("/CreateEvent")
-	public String gre1ting(Model model)  {		
+	public String createEvent(Model model)  {		
 		return "CreateEvent";
 	}
 
 
 
 	@PostMapping("/calendar/{id}")
-	public String gre11ting(Model model,@RequestParam(value="dateEvent") String dateEvent,@RequestParam(value="endDateEvent") String endDateEvent,@RequestParam(value="nameEvent") String nameEvent)  {
+	public String createEvent(Model model,@RequestParam(value="dateEvent") String dateEvent,@RequestParam(value="endDateEvent") String endDateEvent,@RequestParam(value="nameEvent") String nameEvent)  {
 		//,@RequestParam(value="dateEvent") String dateEvent,@RequestParam(value="nameEvent") String nameEvent		
 		Activity activityData = new Activity();
 		
