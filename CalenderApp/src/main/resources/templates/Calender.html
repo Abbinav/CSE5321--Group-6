@@ -18,8 +18,12 @@ var date = /*[[${date}]]*/ "January 29, 2020";
 console.log("Date in html",date);
 var title = /*[[${title}]]*/ "xyz";
 var activity = /*[[${modelData}]]*/ "xyz";
+var notificationData = /*[[${notificationData}]]*/ "xyz";
 console.log("modelData", activity);
-console.log("title in html",title); 
+console.log("notificationData in html",notificationData); 
+	notificationData.map(function(not){
+	 	alert("Your Events for the upcoming day and tomorrow \n" + not.activityName + " : "+ not.startTime);
+	});
 	document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -29,14 +33,15 @@ console.log("title in html",title);
           	activity.map(function(act, i){
           	return{
           		title: act.activityName,
-          		start: act.startTime	
+          		start: act.startTime,
+          		end : act.endTime
           		}
           		
           	})
           	)
           },
           
-         eventClick: function(info) {
+         dateClick: function(info) {
 
       const myWindow = window.open("CreateEvent", "", "width=700,height=700");
 
@@ -51,8 +56,9 @@ console.log("title in html",title);
     newEvents.forEach(event => calendar.addEvent(event));
 });
       
-
-
+  
+	
+	
 </script>
 
 
