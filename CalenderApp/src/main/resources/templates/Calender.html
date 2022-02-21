@@ -14,18 +14,41 @@
 
 	<script th:inline="javascript">
 
-var date = /*[[${date}]]*/ ;
-var title = /*[[${title}]]*/ ;
+var date = /*[[${date}]]*/ "January 29, 2020";
+console.log("Date in html",date);
+var title = /*[[${title}]]*/ "xyz";
+var activity = /*[[${modelData}]]*/ "xyz";
+var notificationData = /*[[${notificationData}]]*/ "xyz";
+var err= /*[[${errMsg}]]*/ "xyz";
+
+  console.log("err", err);
+
+console.log("modelData", activity);
+console.log("notificationData in html",notificationData); 
+	notificationData.map(function(not){
+	 	alert("Your Events for the upcoming day and tomorrow \n" + not.activityName + " : "+ not.startTime);
+	});
+	if(err!=null){
+	alert("errmes" + err);
+	}
 	document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
-          events: [{
-              title: title,
-              start: date
-          }],
-
-         eventClick: function(info) {
+          events: function(info, successCallback, failureCallback){
+		successCallback(         
+          	activity.map(function(act, i){
+          	return{
+          		title: act.activityName,
+          		start: act.startTime,
+          		end : act.endTime
+          		}
+          		
+          	})
+          	)
+          },
+          
+         dateClick: function(info) {
 
       const myWindow = window.open("CreateEvent", "", "width=700,height=700");
 
@@ -35,8 +58,14 @@ var title = /*[[${title}]]*/ ;
         });
         calendar.render();
       });
-
-
+      calendar.batchRendering(() => {
+    // add your new events
+    newEvents.forEach(event => calendar.addEvent(event));
+});
+      
+  
+	
+	
 </script>
 
 
@@ -44,7 +73,6 @@ var title = /*[[${title}]]*/ ;
 
 <body>
 <div id='calendar'></div>
-<h2 th:text= "${date}"/>
 
 
 </body>

@@ -12,10 +12,16 @@
     <link rel="stylesheet" href ="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.3.0/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.3.0/main.min.js"></script>
 
-    <script th:inline="javascript">
 
-    </script>
 
+<!--    <script th:inline="javascript">-->
+<!--function myFunction() {-->
+<!--  alert("test");-->
+<!--var err= /*[[${errMsg}]]*/ "xyz";-->
+<!-- alert("err" + err);-->
+<!--  console.log("err", err);-->
+<!--}-->
+<!--</script>-->
 
 </head>
 
@@ -30,16 +36,27 @@
         <div class="modal-content">
 
 
-            <form action="#" th:action="@{/Calendar1/test}"
+            <form action="#" th:action="@{/calendar/test}"
                   method="post">
-                Enter Todays Date :
+                Enter Start Date and Time :
                 <input name="dateEvent" id="dateEvent" type="datetime-local">
                 <br>
-
-                Enter Event :
+ 				
+ 				Enter End Date and Time :
+                <input name="endDateEvent" id="endDateEvent" type="datetime-local">
+                <br>
+                
+                Enter Event Details :
                 <input name="nameEvent" type="text" id="nameEvent">
                 <br>
-                <button type="submit">Submit </button>
+                Do you want a conflict? :
+                <input type="radio" id="yes" name="yes" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="yes" value="no">
+                <label for="no">No</label><br>
+                <br>
+                <button type="submit"  onclick="myFunction()">Submit </button>
+
             </form>
 
         </div>
