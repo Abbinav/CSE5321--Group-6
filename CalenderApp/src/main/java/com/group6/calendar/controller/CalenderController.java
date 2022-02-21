@@ -86,7 +86,7 @@ if(errMesg.length()>0) {
 
 
 	@PostMapping("/calendar/{id}")
-	public String createEvent(Model model, @RequestParam(value="dateEvent") String dateEvent, @RequestParam(value="endDateEvent") String endDateEvent, @RequestParam(value="nameEvent") String nameEvent,@RequestParam(value="yes") String rdYes,@RequestParam(value="no") String rdno)  {
+	public String createEvent(Model model, @RequestParam(value="dateEvent") String dateEvent, @RequestParam(value="endDateEvent") String endDateEvent, @RequestParam(value="nameEvent") String nameEvent,@RequestParam(value="yes") String rdYes)  {
 		//,@RequestParam(value="dateEvent") String dateEvent,@RequestParam(value="nameEvent") String nameEvent		
 		Activity activityData = new Activity();
 
@@ -110,8 +110,9 @@ if(errMesg.length()>0) {
 			List<Activity> Data1 = new ArrayList<>();
 			List<Activity> result = new ArrayList<>();
 
-			System.out.println("yes"+ rdYes);
-			System.out.println("no"+ rdno);
+			System.out.println("yes "+ rdYes);
+			//System.out.println("no"+ rdno);
+
 			model.addAttribute("errMsg","test message");
 
 
@@ -127,15 +128,26 @@ if(errMesg.length()>0) {
 				System.out.println("test1");
 				if(result.size()==0) {
 					System.out.println("test2");
-					repo.save(activityData);
+
+						repo.save(activityData);
+
 				}
 				else
 				{
-					System.out.println("Event already exists");
+					if(rdYes.contains("yes"))
+					{
+						errMesg="";
+						model.addAttribute("errMsg","");
+						System.out.println("inside yes");
+						repo.save(activityData);
+					}
+					else
+					{
+						errMesg="There is a conflict with the selected time ";
+						System.out.println("err"+ errMesg);
+						model.addAttribute("errMsg","There is a conflict with the selected time");
+					}
 
-					errMesg="Event already exists";
-					System.out.println("err"+ errMesg);
-					model.addAttribute("errMsg","Event Already exists");
 				}
 			}
 			else
